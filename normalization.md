@@ -18,7 +18,7 @@ User (
   full_name TEXT,
   role TEXT
 )
-```
+
 
 Functional & transitive dependency: user_id → role, and role → permissions
 
@@ -27,7 +27,7 @@ This caused data duplication, inconsistency, and blocked permission mapping
 Fix:
 Created a separate Role table and introduced a join table UserRole for a many-to-many relationship:
 
-```sql
+sql
 Role (
   role_id PRIMARY KEY,
   role_name TEXT UNIQUE
@@ -45,7 +45,6 @@ UserRole (
   FOREIGN KEY (user_id) REFERENCES User(user_id),
   FOREIGN KEY (role_id) REFERENCES Role(role_id)
 )
-```
 Now each user can have multiple roles, and each role can be applied to many users.
 
 
@@ -53,15 +52,14 @@ Now each user can have multiple roles, and each role can be applied to many user
 #### Violation:
 Property addresses were stored as a single column:
 
-```sql
+sql
 location TEXT -- e.g., "17 Lekki Phase 1, Lagos"
-```
 This violated 1NF, and blocked filtering or indexing by region
 
 Fix:
 Split into multiple atomic fields:
 
-```sql
+sql
 Property (
   property_id PRIMARY KEY,
   street TEXT,
@@ -69,7 +67,6 @@ Property (
   state TEXT,
   country TEXT
 )
-```
 This enabled precise querying and upheld atomicity.
 
 
@@ -84,7 +81,7 @@ Storing payment_method directly in the Payment table introduced:
 Fix:
 Created a PaymentMethod lookup table:
 
-```sql
+sql
 PaymentMethod (
   method_id PRIMARY KEY,
   name TEXT UNIQUE
@@ -94,5 +91,4 @@ Payment (
   payment_id PRIMARY KEY,
   method_id INT REFERENCES PaymentMethod(method_id)
 )
-```
 Payment types are now normalized and referentially constrained.
