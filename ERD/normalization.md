@@ -1,9 +1,9 @@
-# 📘 Normalization Review: Achieving 3NF in the Airbnb Database
+```markdown
+# Normalization Review: Achieving 3NF in the Airbnb Database
 
 This document outlines the normalization improvements applied to the Airbnb database schema in order to achieve **Third Normal Form (3NF)**. It explains the detected violations, the refactoring steps taken, and how each issue was resolved.
 
 ---
-
 
 ## 3NF Violations and Fixes
 
@@ -24,7 +24,7 @@ Functional & transitive dependency: user_id → role, and role → permissions
 
 This caused data duplication, inconsistency, and blocked permission mapping
 
-Fix:
+**Fix:**  
 Created a separate Role table and introduced a join table UserRole for a many-to-many relationship:
 
 ```sql
@@ -46,19 +46,23 @@ UserRole (
   FOREIGN KEY (role_id) REFERENCES Role(role_id)
 )
 ```
+
 Now each user can have multiple roles, and each role can be applied to many users.
 
+---
 
 ### Property Location as One Column
+
 #### Violation:
 Property addresses were stored as a single column:
 
 ```sql
 location TEXT -- e.g., "17 Lekki Phase 1, Lagos"
 ```
+
 This violated 1NF, and blocked filtering or indexing by region
 
-Fix:
+**Fix:**  
 Split into multiple atomic fields:
 
 ```sql
@@ -70,18 +74,20 @@ Property (
   country TEXT
 )
 ```
+
 This enabled precise querying and upheld atomicity.
 
+---
 
 ### Payment Method as Free Text
+
 #### Violation:
 Storing payment_method directly in the Payment table introduced:
 
-- Repetition of values like 'card', 'wallet', 'transfer'
-
+- Repetition of values like 'card', 'wallet', 'transfer'  
 - No enforced consistency or structure
 
-Fix:
+**Fix:**  
 Created a PaymentMethod lookup table:
 
 ```sql
@@ -95,4 +101,6 @@ Payment (
   method_id INT REFERENCES PaymentMethod(method_id)
 )
 ```
+
 Payment types are now normalized and referentially constrained.
+```
