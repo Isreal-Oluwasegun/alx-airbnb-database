@@ -9,3 +9,8 @@ CREATE INDEX idx_user_email ON user(email);
 
 -- Index on property.city — helpful if you're filtering or ranking properties by city
 CREATE INDEX idx_property_city ON property(city);
+
+-- 
+EXPLAIN ANALYZE
+SELECT * FROM booking
+WHERE start_date >= '2025-07-01';
