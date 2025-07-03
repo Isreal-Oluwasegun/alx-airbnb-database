@@ -4,12 +4,11 @@ FROM booking
 INNER JOIN user
 ON booking.user_id = user.user_id;
  
-   
 SELECT property.*, review.*
 FROM property
 LEFT JOIN review
-ON property.property_id = review.property_id;
-
+ON property.property_id = review.property_id
+ORDER BY property_id ASC;
 
 SELECT user.*,booking.*
 FROM booking
