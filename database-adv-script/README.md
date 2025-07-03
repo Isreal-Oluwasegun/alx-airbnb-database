@@ -26,7 +26,8 @@ INNER JOIN — returns only matched rows where booking.user_id = user.user_id.
 SELECT property.*, review.*
 FROM property
 LEFT JOIN review
-ON property.property_id = review.property_id;
+ON property.property_id = review.property_id
+ORDER BY 1 ASC;
 ```
 Purpose:
 Displays all properties, including those without any reviews. Useful for identifying listings that haven’t been rated.
@@ -38,13 +39,7 @@ LEFT JOIN — includes all records from property and matched records from review
 ```SQL
 SELECT user.*, booking.*
 FROM booking
-LEFT JOIN user ON booking.user_id = user.user_id
-
-UNION
-
-SELECT user.*, booking.*
-FROM booking
-RIGHT JOIN user ON booking.user_id = user.user_id;
+FULL OUTER JOIN user ON booking.user_id = user.user_id
 ```
 Purpose:
 Combines booking and user data to ensure no data is excluded:
