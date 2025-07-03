@@ -27,7 +27,7 @@ SELECT property.*, review.*
 FROM property
 LEFT JOIN review
 ON property.property_id = review.property_id
-ORDER BY 1 ASC;
+ORDER BY property_id ASC;
 ```
 Purpose:
 Displays all properties, including those without any reviews. Useful for identifying listings that haven’t been rated.
