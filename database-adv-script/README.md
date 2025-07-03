@@ -13,7 +13,8 @@ Activates the target database containing Airbnb-style data models for users, pro
 SELECT booking.*, user.*
 FROM booking
 INNER JOIN user
-ON booking.user_id = user.user_id;
+ON booking.user_id = user.user_id
+ORDER BY booking_id ASC;
 ```
 Purpose:
 Retrieves all bookings that are linked to users, showing full booking and user data. This filters out any orphaned bookings without valid users.
@@ -40,6 +41,7 @@ LEFT JOIN — includes all records from property and matched records from review
 SELECT user.*, booking.*
 FROM booking
 FULL OUTER JOIN user ON booking.user_id = user.user_id
+ORDER BY user_id ASC
 ```
 Purpose:
 Combines booking and user data to ensure no data is excluded:
