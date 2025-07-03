@@ -1,0 +1,4 @@
+EXPLAIN
+SELECT * FROM booking
+WHERE start_date >= '2025-07-01';
+
