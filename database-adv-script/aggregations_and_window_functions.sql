@@ -8,7 +8,8 @@ GROUP BY user.user_id;
 SELECT 
 property_id,
 COUNT(*) AS total_bookings,
-RANK() OVER (ORDER BY COUNT(*) DESC) AS booking_rank
+RANK() OVER (ORDER BY COUNT(*) DESC) AS booking_rank,
+ROW_NUMBER() OVER (ORDER BY COUT(*) DESC) AS booking_row_nim
 FROM booking
 GROUP BY property_id;
 
